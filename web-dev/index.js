@@ -17,7 +17,7 @@ let elemClass = document.getElementsByClassName('container');
 elemClass[0].classList.add("bg-primary");
 
 tn=document.getElementsByTagName('div');
-console.log(tn)
+// console.log(tn)
 createdElement=document.createElement('p');
 createdElement.innerText="this is created para";
 
@@ -25,3 +25,39 @@ tn[0].appendChild(createdElement);
 createdElement2 = document.createElement('b');
 createdElement2.innerText = "this is created bold";
 tn[0].replaceChild(createdElement2,createdElement);
+
+//Selecting using Query
+sel = document.querySelector('.container');
+// console.log(sel);
+sel = document.querySelectorAll('.container');
+console.log(sel);
+
+// Events in JavaScript
+/*
+function clicked(){
+    console.log("clicked");
+}
+window.onload=function(){
+    console.log("document was loaded");
+}
+firstContainer.addEventListener('click',function(){
+    console.log("click hua");
+})
+firstContainer.addEventListener('mouseover',function(){
+    console.log("mouse on container");
+})
+firstContainer.addEventListener('mouseout',function(){
+    console.log("mouse out of container");
+})
+firstContainer.addEventListener('mouseup',function(){
+    console.log("mouse up when clicked on container");
+})
+firstContainer.addEventListener('mousedown',function(){
+    console.log("mouse down when clicked on container");
+})
+*/
+
+firstContainer.addEventListener('click',function(){
+    document.querySelectorAll('.container')[1].innerHTML = "<b>We have Clicked</b>";
+    console.log("clicked on container");
+})
