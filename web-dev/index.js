@@ -11,7 +11,17 @@ let string="My name is anand";
 // let elem =  document.getElementById('click');
 // console.log(elem);
 
-let elemClass = document.getElementById('container');
-console.log(elemClass[0]);
+let elemClass = document.getElementsByClassName('container');
+// console.log(elemClass[0]);
 
-// elemClass.classList.add('text color');
+elemClass[0].classList.add("bg-primary");
+
+tn=document.getElementsByTagName('div');
+console.log(tn)
+createdElement=document.createElement('p');
+createdElement.innerText="this is created para";
+
+tn[0].appendChild(createdElement);
+createdElement2 = document.createElement('b');
+createdElement2.innerText = "this is created bold";
+tn[0].replaceChild(createdElement2,createdElement);
