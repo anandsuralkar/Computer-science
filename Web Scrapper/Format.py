@@ -1,4 +1,4 @@
-# Converts the multiword designation string into k value for 'naukri.com'
+# Converts the multi-word designation string into k value for 'naukri.com'
 # designation key value with required number of postings.
 
 def format_designation(des, value):

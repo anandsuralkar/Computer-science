@@ -17,15 +17,19 @@ def scrap(url, file, load_time):
     pages = 5  # Number of pages you want to fetch
     results = soup.find(class_='list')
     jobs = results.find_all('article', class_='jobTuple bgWhite br4 mb-8')
+
+    # Code variables declaration and initiation
     count = 0
     skillslist = []
     skillcount = {}
     keycol=[]
     value=[]
+
+    # DataFrame initiation
     df = pd.DataFrame(columns=['Company', 'Description', 'Experience', 'Locality', 'Salary', 'Skills'])
 
     for i in range(0, pages):
-        time.sleep(0.5)
+        time.sleep(3)
         if count > entries - 1:  # Limit number of entries to integer entries
             break
         for job in jobs:
@@ -44,7 +48,10 @@ def scrap(url, file, load_time):
 
             # Experience in Years
             exp_l = job.find('li', class_='fleft grey-text br2 placeHolderLi experience')
-            exp = exp_l.find('span', class_='ellipsis fleft fs12 lh16')
+            if exp_l is not None:
+                exp = exp_l.find('span', class_='ellipsis fleft fs12 lh16')
+            else:
+                continue
             if exp is None:
                 continue
             else:
@@ -52,7 +59,10 @@ def scrap(url, file, load_time):
 
             # Locality
             loc_l = job.find('li', class_='fleft grey-text br2 placeHolderLi location')
-            loc = loc_l.find('span', class_='ellipsis fleft fs12 lh16')
+            if loc_l is None:
+                continue
+            else:
+                loc = loc_l.find('span', class_='ellipsis fleft fs12 lh16')
             if loc is None:
                 continue
             else:
@@ -60,7 +70,10 @@ def scrap(url, file, load_time):
 
             # Salary
             sal_l = job.find('li', class_='fleft grey-text br2 placeHolderLi salary')
-            sal = sal_l.find('span', class_='ellipsis fleft fs12 lh16')
+            if sal_l is None:
+                continue
+            else:
+                sal = sal_l.find('span', class_='ellipsis fleft fs12 lh16')
             if sal is None:
                 continue
             else:
@@ -86,13 +99,14 @@ def scrap(url, file, load_time):
                  'Experience': experience, 'Locality': location, 'Salary': salary, 'Skills': skills}, ignore_index=True)
             count += 1
 
-    print(df.shape)
     # print(df.head(20))
     if df.empty:
         print("Data cannot be fetch Try again.")
         scrap(url, file, 5)
     else:
         df.to_excel(file + "data.xlsx", index=False)
+        print("Success")
+        print("Key-Skill frequency saved in data.xlsx")
 
     sorted_dict = dict(sorted(skillcount.items(), key=lambda item: item[1], reverse=True))
     df2 = pd.DataFrame(columns=['Skill', 'Frequency'])
@@ -101,8 +115,10 @@ def scrap(url, file, load_time):
         value.append(sorted_dict[key])
 
     freq = pd.DataFrame({'Skill' : keycol, 'Frequency' : value})
-    print(freq)
+    # print(freq)
     freq.to_excel(file + "Skill Frequency.xlsx")
+    print("Success")
+    print("Key-Skill frequency saved in Skill Frequency.xlsx")
 
     # Use this line for xls file. Warning : xls is no longer supported by python except pandas.
     # df.to_excel("C:/Users/Anand/OneDrive/Desktop/Git/Web Scrapper/" +data.xlsx, index=False)
