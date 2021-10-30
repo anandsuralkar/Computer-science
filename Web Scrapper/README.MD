@@ -28,6 +28,7 @@ time
 selenium
 bs4
 chromedriver
+matplotlib (optional for pie plot only)
 
 if any of above modules doesn't work just install them using command promt and pip install method.
 
@@ -47,7 +48,7 @@ To start the script run "main.py"
 Enter the job designation you want to fetch Key-Skills for and press enter.
 The fetched Key-Skills data will be stored in data.xlsx.
 
-Furthermore, frequency of each Key-Skill is stored in Frequency.xlsx in the descending order ie. most frequent Key-Skill at the top and least one at the bottom.
+Furthermore, frequency of each Key-Skill is stored in Skill Frequency.xlsx in the descending order ie. most frequent Key-Skill at the top and least one at the bottom.
 
 
 
@@ -56,7 +57,7 @@ For queries email me at anandsuralkar36@gmail.com.
 Or contact me on 8668237882
 Whatsapp :- 8668237882
 Github :- https://github.com/anandsuralkar/Computer-science.git.
-For this webscrapper project files open Web Scrapper folder in my git repo.
+For this webscrapper project files open Web Scrapper folder in my git repository.
 
 If issues occur regarding webdriver refer this.
 Some versions of webdriver are not compatible with most pandas version and also
@@ -80,6 +81,8 @@ In Format.py format_designation function will return URL .
 main function will then call scrap function in Scrapper.py script
 Scrapper will Scrap the Key-Skill and other required data from Top 20 job results from the designation provided by user.
 Scrap function will run by default 5 number or pages but will stop as soon as 20 entries collected, both pages number and entries number can be edited in scrap function itself .
+
+In Scrapper Script Remove import matplotlib as plt and at the Delete or comment out pie plot code to get rid of pie plot
 
 ###################################      Alternative method and comments      ####################################
 I actucally made the whole project using 'requests' module and did all fetching data myself but unfortunately 'requests' module doesn't support scrapping javascript embeded data in page instead it just fetches the raw html data only.

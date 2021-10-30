@@ -4,10 +4,17 @@ import Format
 print("Enter job designation to search jobs for : ")
 designation = input()
 
-url = "https://www.naukri.com/" + Format.format_designation(designation, False) + "-jobs"
-file = "C:/Users/Anand/OneDrive/Desktop/Git/Web Scrapper/"   # Must give path of project root directory
+# pie plot user input is 1 then pie plot will be shown other wise pyplot will not be shown
+pie =False
+if input("Press enter again to skip pie plot of Key-Skill frequency or press 1 and enter to show pie plot") ==  "1":
+    pie = True
+#_________________________________________________________________________________________
 
-Scrapper.scrap(url, file, 5)  # Third parameter is load time ie. how long to wait before parsing HTML after opening link
+
+url = "https://www.naukri.com/" + Format.format_designation(designation, False) + "-jobs"
+file = "C:/Users/Anand/OneDrive/Desktop/Git/Web Scrapper/"   # Must give path of project root directory and must end with slash'/'
+
+Scrapper.scrap(url, file, 5, pie)  # Third parameter is load time ie. how long to wait before parsing HTML after opening link
 
 """
 If theres no output even after retry try increasing third parameter in above function call from 5 to 10 or more,
