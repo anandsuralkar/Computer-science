@@ -20,6 +20,8 @@ def scrap(url, file, load_time):
     count = 0
     skillslist = []
     skillcount = {}
+    keycol=[]
+    value=[]
     df = pd.DataFrame(columns=['Company', 'Description', 'Experience', 'Locality', 'Salary', 'Skills'])
 
     for i in range(0, pages):
@@ -90,12 +92,17 @@ def scrap(url, file, load_time):
         print("Data cannot be fetch Try again.")
         scrap(url, file, 5)
     else:
-        df.to_excel(file, index=False)
+        df.to_excel(file + "data.xlsx", index=False)
 
     sorted_dict = dict(sorted(skillcount.items(), key=lambda item: item[1], reverse=True))
-    df2 = pd.DataFrame('Skill', 'Frequency')
-    df2.append('skill': skillname, 'Frequency': frequncy)
-    print(sorted_dict)
+    df2 = pd.DataFrame(columns=['Skill', 'Frequency'])
+    for key in sorted_dict:
+        keycol.append(key)
+        value.append(sorted_dict[key])
+
+    freq = pd.DataFrame({'Skill' : keycol, 'Frequency' : value})
+    print(freq)
+    freq.to_excel(file + "Skill Frequency.xlsx")
 
     # Use this line for xls file. Warning : xls is no longer supported by python except pandas.
-    # df.to_excel("C:/Users/Anand/OneDrive/Desktop/Git/Web Scrapper/data.xls", index=False)
+    # df.to_excel("C:/Users/Anand/OneDrive/Desktop/Git/Web Scrapper/" +data.xlsx, index=False)
