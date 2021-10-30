@@ -6,7 +6,7 @@ For global installation of dependencies use following method:-
 first open the project folder directory and then type cmd into adress bar to open command prompt in current directory or just use cd command to get into current directory
 Then run following command:-
 
-pip install -r requrements.txt
+pip install -r requirements.txt
 
 After that add local path to chromedriver root folder in path environment variable
 refer link provided at the end if needed.
@@ -16,7 +16,7 @@ Enter the job designation you want to fetch Key-Skills for and press enter.
 The fetched Key-Skills data will be stored in data.xlsx.
 
 
-###################################       Setting up prject in pycharm       ####################################
+###################################       Setting up project in pycharm       ####################################
 If chromedriver has issues
 Use pycharm IDE because webdriver has bug where it asks for chromedriver.exe and doesnt accept it even if u give path with local environment,so in that case pycharm is recommended.
 in pycharm go to file->settings->Project->Python Interpreter  click "+" button to add following modules.
