@@ -48,6 +48,7 @@ int main(){
 	string name=R8.getName();
     string model=R8.getModel();
     int weight=R8.getWeight();
+    
     cout<<"model "<<model<<endl;
     cout<<"name "<<name<<endl;
     cout<<"weight "<<weight<<endl;
