@@ -3,5 +3,49 @@
 {% endblock title %}
 Contact
 {% block body %}
-This is body block
+<div class="container-fluid px-0 mb-4">
+    <img src="static/Images/contact.jpg" alt="Img" class = "d-block w-100 mx-0">
+</div>
+<div class="container py-4">
+
+    <head>
+        <style>
+            /*body {
+                background-image: url(/static/Images/desert.jfif);
+                height: 100vh;
+                width: 100vw;
+                background-size: 100%;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+            */ 
+        </style>
+    </head>
+
+    <body>
+        <h1 class="text-center" style="position: relative;
+        margin-top: 5%;position: relative;">Contact Me!</h1>
+    </body>
+    <form method="post" action="/contact">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="Name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name.">
+        </div>
+        <div class="form-group">
+            <label for="Email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your Email.">
+        </div>
+        <div class="form-group">
+            <label for="Phone">Phone</label>
+            <input type="Phone" class="form-control" id="phone" name="phone" placeholder="Enter phone number">
+        </div>
+        
+        <div class="form-group">
+            <label for="desc">Short description</label>
+            <textarea class="form-control" id="desc" name ="desc" rows="3"></textarea>
+        </div>
+        <button class = "btn btn-primary" >Submit</button>
+    </form>
+</div>
 {% endblock body %}
