@@ -18,7 +18,7 @@ int max(int* arr,int n){
 		
 	}
 	
-	return arr[0]*arr[1];
+	return arr[0]+arr[1];
 }
 
 int main(){
