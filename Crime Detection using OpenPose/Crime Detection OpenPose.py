@@ -6,7 +6,7 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--input', help='Path to image or video. Skip to capture frames from camera')
-parser.add_argument('--thr', default=0.15, type=float, help='Threshold value for pose parts heat map')
+parser.add_argument('--thr', default=0.10, type=float, help='Threshold value for pose parts heat map')
 parser.add_argument('--width', default=368, type=int, help='Resize input to specific width.')
 parser.add_argument('--height', default=368, type=int, help='Resize input to specific height.')
 
@@ -114,7 +114,10 @@ while cv.waitKey(1) < 0:
         print("____________________________________________________________________________________________")
         print("crime detected")
         print("____________________________________________________________________________________________")
-    fall=False
+        punch =False
+        kick = False
+        fall = False
+        
 
     
     for pair in POSE_PAIRS:

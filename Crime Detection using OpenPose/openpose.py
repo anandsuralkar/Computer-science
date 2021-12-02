@@ -29,7 +29,8 @@ inHeight = args.height
 net = cv.dnn.readNetFromTensorflow("graph_opt.pb")
 
 cap = cv.VideoCapture(args.input if args.input else 0)
-
+ymax = 0
+yavg = 0
 while cv.waitKey(1) < 0:
     hasFrame, frame = cap.read()
     if not hasFrame:
@@ -58,48 +59,96 @@ while cv.waitKey(1) < 0:
         y = (frameHeight * point[1]) / out.shape[2]
         # Add a point if it's confidence is higher than threshold.
         points.append((int(x), int(y)) if conf > args.thr else None)
+        
+        #print(points)
+
+
+    l = [2,3,5,6]
+    upperbody = True
+    for i in l:
+        if points[i] == None :
+            upperbody = False
+    punch=False
+    if upperbody:
+        #if ((points[0][1] - (points[9][1] + points[12][1]) / 2) < 10):
+            #print("fall detected")
+            #fall=True
+        #punch detection
+        punch=False
+
+        dx =abs(points[2][0] - points[3][0])
+        dy =abs(points[2][1] - points[3][1])
+        dx2=abs(points[5][0] - points[6][0])
+        dy2=abs(points[5][1] - points[6][1])
+        
+        
+        try:
+            if dy != 0:
+                #print(dx,dy,dx/dy)
+                if dx/dy >1:
+                    punch=True
+            if dy2 != 0:
+                #print(dx2,dy2,dx2/dy2)
+                if dx2/dy2 >1:
+                    punch=True
+            if punch:
+                print("punch or stab detected")
+        except:
+            pass
+    kick = False
+        #kick detection
+    l = [8,9,11,12]
+    lowerbody = True
+    for i in l:
+        if points[i] == None :
+            lowerbody = False
+    if lowerbody:
+        dx =abs(points[8][0] - points[9][0])
+        dy =abs(points[8][1] - points[9][1])
+        dx2=abs(points[11][0] - points[12][0])
+        dy2=abs(points[11][1] - points[12][1])
+        #print(dx,dy,dx/dy)
+        #print(dx2,dy2,dx2/dy2)
+        try:
+            if dy != 0:
+                if dx/dy >0.9:
+                    kick=True
+            if dy2 != 0:
+                if dx2/dy2 >0.9:
+                    kick=True
+            if kick:
+                print("kick detected")
+        except:
+            pass
+        #kick detection
+        kick=False
 
     fall=False
     #fall detection
-    """in Second phase ie multiperson detection 
-    for i in (people[i]!=None):
-        #single person code here
-        """
-    if (points[0] != None):
-        if (points[9] != None and points[12] != None):
-            if ((points[0][1] - (points[9][1] + points[12][1]) / 2) < 10):
-                print("fall detected")
-                fall=True
-    #punch detection
-    punch=False
-    """in Second phase ie multiperson detection 
-        for i in (people[i]!=None):
-            #single person code here
-            """
-    if (points[0] != None):
-        if (points[2] != None and points[5] != None):
-            if (abs(points[0][0] - points[2][0] ) > 25 or abs(points[0][0] - points[5][0]) > 25):
-                punch=True
-    if punch:
-        print("punch detected")
-    #kick detection
-    kick=False
-    """in Second phase ie multiperson detection 
-        for i in (people[i]!=None):
-            #single person code here
-            """
-    if (points[0] != None):
-        if (points[10] != None and points[13] != None):
-            if (abs(points[0][0] - points[10][0] ) > 10 or abs(points[0][0] - points[13][0]) > 10):
-                kick=True
-    if kick:
-        print("kick detected")
-    """in Second phase ie multiperson detection 
-        for i in (people[i]!=None):
-            #single person code here
-            """
-    if(fall and punch or kick):
-        print("crime detected")
+    if ymax < yavg :
+        ymax = yavg
+    if upperbody and points[8] != None and points[11] != None and points[0] != None:
+        x1 = (points[2][0] + points[5][0])/2
+        y1 = points[0][1]
+        xi = points[2][0]
+        xj = points[5][0]
+        xx = abs(xj - xi)
+        x2 = (points[8][0] + points[11][0])/2
+        y2 = (points[8][1] + points[11][1])/2
+
+        yavg = (y1+y2) / 2
+        dx = x2 - x1
+        dy = y2 - y1
+        #print(dx,dy,dx/dy)
+        if dy != 0:
+            if abs(dx/dy) > 1:
+                fall = True
+        #print(ymax,yavg,xx/2)
+        if (ymax - yavg) > xx/2 :
+            fall = True
+            print("fall detected")
+        if(fall and punch or kick):
+            print("crime detected")
     punch=False
     fall=False
     kick=False
